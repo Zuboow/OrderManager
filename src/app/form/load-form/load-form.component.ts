@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 import * as html2pdf from 'html2pdf.js';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { AddPlantComponent } from '../add-plant/add-plant.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddPlantComponent } from './add-plant/add-plant.component';
 
 @Component({
   selector: 'app-load-form',
@@ -61,11 +61,11 @@ export class LoadFormComponent implements OnInit {
     this.plants.splice(index, 1);
   }
 
-  open() {
-    this.modalService.open(AddPlantComponent, {}).result.then((result) => { });
+  open(content) {
+    const modalRef = this.modalService.open(content);
   }
 
-  public loadNewPlant() {
+  loadNewPlant() {
     var newPlant = JSON.parse(localStorage.getItem('newPlant'));
     console.log(newPlant);
     var addition = [newPlant.name, newPlant.size, newPlant.potCap, newPlant.quantity, newPlant.price];
@@ -74,6 +74,5 @@ export class LoadFormComponent implements OnInit {
     this.modalService.dismissAll();
 
     localStorage.removeItem("newPlant");
-
   }
 }

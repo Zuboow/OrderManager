@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { LoadFormComponent } from '../load-form/load-form.component';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-add-plant',
@@ -14,8 +13,9 @@ export class AddPlantComponent implements OnInit {
   quantity: number = 0;
   type = '';
   index: number;
+  @Output() newEvent = new EventEmitter();
 
-  constructor(private loadForm: LoadFormComponent) { 
+  constructor() { 
   }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class AddPlantComponent implements OnInit {
       quantity: this.quantity
     }
     localStorage.setItem('newPlant', JSON.stringify(newPlant));
-    this.loadForm.loadNewPlant();
+    this.newEvent.emit(null);
   }
 
 }

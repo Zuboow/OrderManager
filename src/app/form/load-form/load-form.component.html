@@ -14,10 +14,13 @@
 </table>
 <div class="row" style="margin-top: 5vh;">
     <div class="col-2 d-flex justify-content-start">
-        <button class="btn-primary" style="padding: 9px;" (click)="open()">Dodaj pozycję</button>
+        <button class="btn-primary" style="padding: 9px;" (click)="open(addPlantComponent)">Dodaj pozycję</button>
     </div>
     <div class="col-8"></div>
     <div class="col-2 d-flex justify-content-end">
         <button class="btn-success" style="padding: 9px;" (click)="SavePDFFile()">Pobierz PDF</button>
     </div>
 </div>
+<ng-template #addPlantComponent>
+    <app-add-plant (newEvent)="loadNewPlant()"></app-add-plant>
+</ng-template>
