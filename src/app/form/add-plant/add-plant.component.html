@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mt-3">
+            <p>Wybierz odmianę</p>
+            <select style="padding: 6px; width: 100%" [(ngModel)] = "type">
+                <option *ngFor="let i of plants, let ind = index">
+                    {{(ind + 1) + '. ' + i.name + ' (wys. ' + i.size + 'cm, poj. ' + i.potCap + 'l)'}}
+                </option>
+            </select>
+        </div>
+        <div class="col-12 mt-3">
+            <p>Podaj ilość</p>
+            <input type="number" style="width: 100%; padding: 6px;" [(ngModel)]="quantity">
+        </div>
+        <div class="col-12 mt-3 mb-3">
+            <button class="btn btn-primary" (click)="confirm()">Dodaj</button>
+        </div>
+    </div>
+</div>

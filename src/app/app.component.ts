@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'OrderManager';
+  currentYear: number;
+
+  ngOnInit(){
+    var date = new Date();
+    this.currentYear = date.getFullYear();
+  }
+
+
 }
