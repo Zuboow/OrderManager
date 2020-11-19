@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 import * as html2pdf from 'html2pdf.js';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddPlantComponent } from './add-plant/add-plant.component';
 
@@ -14,20 +14,19 @@ export class LoadFormComponent implements OnInit {
 
   fileName: string = "Zamówienie";
   icon = faTimes;
+  icon2 = faEdit;
+  editedIndex: -1;
+  @Input() orderName = "";
 
   head = [['Lp.', 'Odmiana', 'Wymiar (cm)', 'Pojemnik (l)', 'Ilość zamówionych roślin', 'Cena w zakupie powyżej 5000zł - rabat 20%']]
 
-  plants = [
-    ['Juniperus chinensis "Gold Fern"', '50-60', '7,5', 20, '28,00'],
-    ['Juniperus chinensis "Stricta"', '55-60', '7,5', 20, '28,00'],
-    ['Juniperus horizontalis "Prince of Wales"', '70-80', '7,5', 20, '28,00'],
-    ['Juniperus squamata "Blue Carpet"', '60-70', '7,5', 10, '28,00'],
-    ['Picea abies "Nidiformis"', '60-70', '15', 20, '64,00'],
-  ];
+  plants = [];
 
   constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    this.orderName = localStorage.getItem("orderName");
+    this.plants = JSON.parse(localStorage.getItem("plantList"));
   }
 
   // SaveExcelFile(){
@@ -59,20 +58,33 @@ export class LoadFormComponent implements OnInit {
 
   removeByIndex(index) {
     this.plants.splice(index, 1);
+    this.saveInLocalStorage();
   }
 
-  open(content) {
-    const modalRef = this.modalService.open(content);
+  edit(index, content){
+    localStorage.setItem("editedIndex", JSON.stringify(this.plants[index]));
+    this.editedIndex = index;
+    this.modalService.open(content);
   }
 
-  loadNewPlant() {
-    var newPlant = JSON.parse(localStorage.getItem('newPlant'));
-    console.log(newPlant);
-    var addition = [newPlant.name, newPlant.size, newPlant.potCap, newPlant.quantity, newPlant.price];
-    console.log(addition);
-    this.plants.push(addition);
+  add(content) {
+    this.editedIndex = -1;
+    this.modalService.open(content);
+  }
+
+  loadPlant() {
+    var plant = JSON.parse(localStorage.getItem('plantInstance'));
+    if (this.editedIndex > -1){
+      this.plants[this.editedIndex] = plant;
+    } else {
+      this.plants.push(plant);
+    }
     this.modalService.dismissAll();
+    localStorage.removeItem("plantInstance");
+    this.saveInLocalStorage();
+  }
 
-    localStorage.removeItem("newPlant");
+  saveInLocalStorage(){
+    localStorage.setItem("plantList", JSON.stringify(this.plants));
   }
 }

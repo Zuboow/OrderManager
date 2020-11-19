@@ -1,20 +1,25 @@
 <div style="margin-top: 8vh"></div>
 <table class="table table-bordered" id="excelTable" style="color:rgb(0, 0, 0); margin: 1px;">
     <tr>
-        <th colspan="6" class="text-center">Zestawienie Roślin</th>
+        <th colspan="6" class="text-center">{{orderName}}</th>
     </tr>
     <tr *ngFor="let x of head">
         <th *ngFor="let y of x">{{y}}</th>
     </tr>
     <tr *ngFor="let i of plants, let ind = index">
         <td>{{ind + 1}}</td>
-        <td *ngFor="let j of i">{{j}}</td>
-        <td data-html2canvas-ignore="true" (click)="removeByIndex(ind)"><fa-icon [icon]="icon"></fa-icon></td>
+        <td>{{i.name}}</td>
+        <td>{{i.size}}</td>
+        <td>{{i.potCap}}</td>
+        <td>{{i.quantity}}</td>
+        <td>{{i.price}}</td>
+        <td data-html2canvas-ignore="true" (click)="edit(ind, addPlantComponent)" style="cursor:pointer;"><fa-icon [icon]="icon2"></fa-icon></td>
+        <td data-html2canvas-ignore="true" (click)="removeByIndex(ind)" style="cursor:pointer;"><fa-icon [icon]="icon"></fa-icon></td>
     </tr>
 </table>
 <div class="row" style="margin-top: 5vh;">
     <div class="col-2 d-flex justify-content-start">
-        <button class="btn-primary" style="padding: 9px;" (click)="open(addPlantComponent)">Dodaj pozycję</button>
+        <button class="btn-primary" style="padding: 9px;" (click)="add(addPlantComponent)">Dodaj pozycję</button>
     </div>
     <div class="col-8"></div>
     <div class="col-2 d-flex justify-content-end">
@@ -22,5 +27,5 @@
     </div>
 </div>
 <ng-template #addPlantComponent>
-    <app-add-plant (newEvent)="loadNewPlant()"></app-add-plant>
+    <app-add-plant [editedIndex]="editedIndex" (loadPlant)="loadPlant()"></app-add-plant>
 </ng-template>
