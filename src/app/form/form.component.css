@@ -1,0 +1,11 @@
+.vertical-center{
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+}
+
+.bigger-font{
+    font-size: 20px;
+    padding: 3%;
+}
+

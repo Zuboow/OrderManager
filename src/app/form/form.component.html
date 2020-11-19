@@ -1,0 +1,22 @@
+<div class="vertical-center">
+    <div class="container" style="min-width: 100vw;">
+        <div class="row" *ngIf="modeSelected == 0">
+            <div class="col-2"></div>
+            <div class="col-4 d-flex justify-content-center">
+                <button class="btn btn-secondary bigger-font" (click)="selectMode(1, nameEdit)">Stwórz nowe zamówienie</button>
+            </div>
+            <div class="col-4 d-flex justify-content-center">
+                <button class="btn btn-secondary bigger-font" [disabled]="!orderExists" (click)="selectMode(2, nameEdit)">Wczytaj istniejące zamówienie</button>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row" *ngIf="modeSelected > 0">
+            <div class="col-12 d-flex justify-content-center">
+                <app-load-form [orderName]="orderName"></app-load-form>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #nameEdit>
+    <app-set-order-name (nameSaved)="setName()"></app-set-order-name>
+</ng-template>

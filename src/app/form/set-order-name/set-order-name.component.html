@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-3" *ngIf="formError">
+            <p style="color: red">{{errorMessage}}</p>
+        </div>
+        <div class="col-12 mt-3">
+            <p>Wpisz nagłówek dokumentu</p>
+            <input type="text" style="width: 100%; padding: 6px;" [(ngModel)]="name">
+        </div>
+        <div class="col-12 mt-3 mb-3">
+            <button class="btn btn-primary" (click)="confirm()">Zatwierdź</button>
+        </div>
+    </div>
+</div>
