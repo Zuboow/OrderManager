@@ -19,7 +19,7 @@ export class SetOrderNameComponent implements OnInit {
 
   confirm(){
     if (this.name.trim().length > 0){
-      localStorage.setItem("orderName", this.name);
+      localStorage.setItem("orderName", this.name.trim());
       this.formError = false;
       this.nameSaved.emit(null);
     } else {

@@ -10,10 +10,12 @@ export class FormComponent implements OnInit {
 
   modeSelected: number = 0;
   orderName = "";
+  orderExists: boolean;
 
   constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    this.orderExists = localStorage.getItem("orderName") != null ? true : false;
   }
 
   selectMode(newNumber, content) {

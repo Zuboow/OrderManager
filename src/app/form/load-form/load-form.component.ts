@@ -40,7 +40,7 @@ export class LoadFormComponent implements OnInit {
 
   SavePDFFile() {
     const options = {
-      filename: 'Zamówienie',
+      filename: localStorage.getItem("orderName").trim(),
       image: { type: 'jpeg' },
       html2canvas: {
         scale: 4,

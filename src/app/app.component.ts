@@ -14,5 +14,8 @@ export class AppComponent {
     this.currentYear = date.getFullYear();
   }
 
+  reload(){
+    location.reload();
+  }
 
 }
