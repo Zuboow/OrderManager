@@ -43,10 +43,15 @@ export class LoadFormComponent implements OnInit {
       filename: localStorage.getItem("orderName").trim(),
       image: { type: 'jpeg' },
       html2canvas: {
+        margin: 0,
+        height: 4000,
         scale: 4,
+        y: 0,
+        scrollY: 0,
         dpi: 196
       },
       jsPDF: { orientation: 'portrait' },
+      pagebreak: { mode: 'css', after: '.avoidThisRow' }
 
     };
 
@@ -61,7 +66,7 @@ export class LoadFormComponent implements OnInit {
     this.saveInLocalStorage();
   }
 
-  edit(index, content){
+  edit(index, content) {
     localStorage.setItem("editedIndex", JSON.stringify(this.plants[index]));
     this.editedIndex = index;
     this.modalService.open(content);
@@ -74,7 +79,7 @@ export class LoadFormComponent implements OnInit {
 
   loadPlant() {
     var plant = JSON.parse(localStorage.getItem('plantInstance'));
-    if (this.editedIndex > -1){
+    if (this.editedIndex > -1) {
       this.plants[this.editedIndex] = plant;
     } else {
       this.plants.push(plant);
@@ -84,7 +89,7 @@ export class LoadFormComponent implements OnInit {
     this.saveInLocalStorage();
   }
 
-  saveInLocalStorage(){
+  saveInLocalStorage() {
     localStorage.setItem("plantList", JSON.stringify(this.plants));
   }
 }
