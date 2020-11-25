@@ -8,7 +8,7 @@
             <form [formGroup]="plantForm">
             <select style="padding: 6px; width: 100%" formControlName="plant">
                 <option [value]="i.id" *ngFor="let i of plants">
-                    {{i.id + '. ' + i.name + ' (' + i.size + 'cm, ' + i.potCap + 'l)'}}
+                    {{i.id + '. ' + i.name + ' (' + i.size + 'cm, ' + i.potCap + ')'}}
                 </option>
             </select>
             </form>

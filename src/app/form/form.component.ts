@@ -22,6 +22,7 @@ export class FormComponent implements OnInit {
     switch (newNumber) {
       case 1:
         localStorage.setItem("plantList", JSON.stringify([]));
+        localStorage.removeItem("orderName");
         this.modalService.open(content);
         // localStorage.setItem("plantList", JSON.stringify([
         //   {id: 1, name:'Abies balsamea "Abedebebe"', size: '60-70', potCap: '7,5', price: '28,00', quantity: 30},
