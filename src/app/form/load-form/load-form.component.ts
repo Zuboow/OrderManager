@@ -43,7 +43,6 @@ export class LoadFormComponent implements OnInit {
       filename: localStorage.getItem("orderName").trim(),
       image: { type: 'jpeg' },
       html2canvas: {
-        margin: 0,
         height: 120+(this.plants.length * 45)+((this.plants.length / 22) * 45),
         scale: 4,
         y: 0,
@@ -75,6 +74,15 @@ export class LoadFormComponent implements OnInit {
   add(content) {
     this.editedIndex = -1;
     this.modalService.open(content);
+  }
+
+  editName(content){
+    this.modalService.open(content);
+  }
+
+  setNewOrderName(){
+    this.orderName = localStorage.getItem("orderName");
+    this.modalService.dismissAll();
   }
 
   loadPlant() {

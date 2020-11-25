@@ -15,6 +15,9 @@ export class SetOrderNameComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if (localStorage.getItem("orderName") != null) {
+      this.name = localStorage.getItem("orderName");
+    }
   }
 
   confirm(){

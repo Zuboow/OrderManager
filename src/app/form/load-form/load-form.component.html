@@ -3,6 +3,7 @@
     <table class="table table-bordered" style="color:rgb(0, 0, 0);">
         <tr>
             <th colspan="6" class="text-center">{{orderName}}</th>
+            <th colspan="6" class="text-center" style="cursor:pointer;" data-html2canvas-ignore="true" (click)="editName(setOrderName)"><fa-icon [icon]="icon2"></fa-icon></th>
         </tr>
         <tr *ngFor="let x of head">
             <th *ngFor="let y of x">{{y}}</th>
@@ -57,3 +58,6 @@
         </tr>
     </table>
 </div>
+<ng-template #setOrderName>
+    <app-set-order-name (nameSaved)="setNewOrderName()"></app-set-order-name>
+</ng-template>

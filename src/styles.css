@@ -5,4 +5,5 @@ html,body{
     min-height: 100vh;
     background-color: rgb(235, 235, 235);
     color: rgb(0, 0, 0);
+    overflow-x: hidden;
 }
