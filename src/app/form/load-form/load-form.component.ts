@@ -43,7 +43,7 @@ export class LoadFormComponent implements OnInit {
       filename: localStorage.getItem("orderName").trim(),
       image: { type: 'jpeg' },
       html2canvas: {
-        height: 120+(this.plants.length * 45)+((this.plants.length / 22) * 45),
+        height: 400+(this.plants.length * 45)+((this.plants.length / 22) * 45),
         scale: 4,
         y: 0,
         scrollY: 0,
