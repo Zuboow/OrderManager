@@ -18,7 +18,7 @@ export class LoadFormComponent implements OnInit {
   editedIndex: -1;
   @Input() orderName = "";
 
-  head = [['Lp.', 'Odmiana', 'Wymiar (cm)', 'Pojemnik (l)', 'Ilość zamówionych roślin', 'Cena w zakupie powyżej 5000zł - rabat 20%']]
+  head = [['Lp.', 'Odmiana', 'Wysokość rośliny', 'Pojemność doniczki', 'Ilość zamówionych roślin', 'Cena w zakupie powyżej 5000zł - rabat 20%']]
 
   plants = [];
 
@@ -38,25 +38,25 @@ export class LoadFormComponent implements OnInit {
   //   XLSX.writeFile(wb, this.fileName + '.xlsx');
   // }
 
-  SavePDFFile() {
+  SavePDFFile(content) {
     const options = {
       filename: localStorage.getItem("orderName").trim(),
       image: { type: 'jpeg' },
       html2canvas: {
         margin: 0,
-        height: 4000,
+        height: 120+(this.plants.length * 45)+((this.plants.length / 22) * 45),
         scale: 4,
         y: 0,
         scrollY: 0,
         dpi: 196
       },
       jsPDF: { orientation: 'portrait' },
-      pagebreak: { mode: 'css', after: '.avoidThisRow' }
+      // pagebreak: { mode: 'css', after: '.avoidThisRow'}
+      pagebreak: {mode: 'avoid-all'}
 
     };
 
-    const content: Element = document.getElementById("excelTable");
-    html2pdf().from(content).set(options).save();
+    html2pdf().from(content.innerHTML).set(options).save();
   }
 
 
@@ -86,6 +86,7 @@ export class LoadFormComponent implements OnInit {
     }
     this.modalService.dismissAll();
     localStorage.removeItem("plantInstance");
+
     this.saveInLocalStorage();
   }
 

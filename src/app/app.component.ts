@@ -37,7 +37,22 @@ export class AppComponent {
         var worksheet = workbook.Sheets[first_sheet_name];
 
         var arraylist = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+
         console.log(arraylist);
+
+        var plantList = [];
+        for(var x = 9; x<arraylist.length;x++){
+          if (arraylist[x]['Szkółka Roślin Ozdobnych'] != "Rośliny szczepione" && arraylist[x]['__EMPTY_5'] >= 1){
+            plantList.push({
+              id: arraylist[x]['__EMPTY'], 
+              name: arraylist[x]['Szkółka Roślin Ozdobnych'], 
+              potCap: arraylist[x]['__EMPTY_2'], 
+              price: arraylist[x]['__EMPTY_5'], 
+              size: arraylist[x]['__EMPTY_1']});
+          }
+        }
+        console.log(plantList);
+        localStorage.setItem('plantCatalogue', JSON.stringify(plantList));
         alert("Importowanie zakończone pomyślnie");
       }
     } else {

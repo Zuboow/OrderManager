@@ -9,10 +9,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class AddPlantComponent implements OnInit {
 
   plantForm: FormGroup;
-  plants = [
-    { id: 1, name: 'Abies balsamea "Abedebebe"', size: '60-70', potCap: '7,5', price: '28,00' },
-    { id: 2, name: 'Picea omorica "Hugo Wraca do Polsatu"', size: '110-120', potCap: '12', price: '48,00' },
-    { id: 3, name: 'Thuja plicata "Kukuryku w Słoiku"', size: '70-80', potCap: '7,5', price: '28,00' }];
+  plants = [];
   quantity: number = 0;
   index: number = null;
   formError: boolean = false;
@@ -27,6 +24,9 @@ export class AddPlantComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem("plantCatalogue") != null){
+      this.plants = JSON.parse(localStorage.getItem("plantCatalogue"));
+    }
     if (this.editedIndex > -1) {
       var ind = JSON.parse(localStorage.getItem("editedIndex"));
       this.quantity = ind.quantity;
