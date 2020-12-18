@@ -17,8 +17,9 @@ export class LoadFormComponent implements OnInit {
   icon2 = faEdit;
   editedIndex: -1;
   @Input() orderName = "";
+  endPrice = 0;
 
-  head = [['Lp.', 'Odmiana', 'Wysokość rośliny', 'Pojemność doniczki', 'Ilość zamówionych roślin', 'Cena w zakupie powyżej 5000zł - rabat 20%']]
+  head = [['Lp.', 'Odmiana', 'Wysokość rośliny', 'Pojemność doniczki', 'Ilość zamówionych roślin', 'Cena hurtowa netto', 'Suma netto']]
 
   plants = [];
 
@@ -27,6 +28,7 @@ export class LoadFormComponent implements OnInit {
   ngOnInit(): void {
     this.orderName = localStorage.getItem("orderName");
     this.plants = JSON.parse(localStorage.getItem("plantList"));
+    this.setNewEndPrice();
   }
 
   // SaveExcelFile(){
@@ -92,10 +94,18 @@ export class LoadFormComponent implements OnInit {
     } else {
       this.plants.push(plant);
     }
+    this.setNewEndPrice();
     this.modalService.dismissAll();
     localStorage.removeItem("plantInstance");
 
     this.saveInLocalStorage();
+  }
+
+  setNewEndPrice(){
+    this.endPrice = 0;
+    this.plants.forEach(element => {
+      this.endPrice += element.fullPrice; 
+    });
   }
 
   saveInLocalStorage() {

@@ -2,8 +2,8 @@
 <div id="excelTable">
     <table class="table table-bordered" style="color:rgb(0, 0, 0);">
         <tr>
-            <th colspan="6" class="text-center">{{orderName}}</th>
-            <th colspan="6" class="text-center" style="cursor:pointer;" data-html2canvas-ignore="true" (click)="editName(setOrderName)"><fa-icon [icon]="icon2"></fa-icon></th>
+            <th colspan="7" class="text-center">{{orderName}}</th>
+            <th colspan="7" class="text-center" style="cursor:pointer;" data-html2canvas-ignore="true" (click)="editName(setOrderName)"><fa-icon [icon]="icon2"></fa-icon></th>
         </tr>
         <tr *ngFor="let x of head">
             <th *ngFor="let y of x">{{y}}</th>
@@ -16,7 +16,8 @@
             <td>{{i.size}}cm</td>
             <td>{{i.potCap}}</td>
             <td>{{i.quantity}}</td>
-            <td>{{i.price}}</td>
+            <td>{{i.price}}zł</td>
+            <td>{{i.fullPrice}}zł</td>
             <td data-html2canvas-ignore="true" (click)="edit(ind, addPlantComponent)" style="cursor:pointer;">
                 <fa-icon [icon]="icon2"></fa-icon>
             </td>
@@ -25,6 +26,13 @@
             </td>
         </tr>
     </table>
+    <br>
+    <div style="font-size: 12px;" class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <b>Razem do zapłaty (netto): &nbsp;{{endPrice}}zł</b>
+        </div>
+    </div>
 </div>
 <div class="row" style="margin-top: 5vh;">
     <div class="col-2 d-flex justify-content-start">
@@ -41,7 +49,7 @@
 <div #printedTable style="display: none;">
     <table class="table table-bordered" style="color:rgb(0, 0, 0);">
         <tr>
-            <th colspan="6" class="text-center">{{orderName}}</th>
+            <th colspan="7" class="text-center">{{orderName}}</th>
         </tr>
         <tr *ngFor="let x of head">
             <th *ngFor="let y of x">{{y}}</th>
@@ -54,9 +62,17 @@
             <td>{{i.size}}cm</td>
             <td>{{i.potCap}}</td>
             <td>{{i.quantity}}</td>
-            <td>{{i.price}}</td>
+            <td>{{i.price}}zł</td>
+            <td>{{i.fullPrice}}zł</td>
         </tr>
     </table>
+    <br>
+    <div style="font-size: 12px;" class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <b>Razem do zapłaty (netto): &nbsp;{{endPrice}}zł</b>
+        </div>
+    </div>
 </div>
 <ng-template #setOrderName>
     <app-set-order-name (nameSaved)="setNewOrderName()"></app-set-order-name>

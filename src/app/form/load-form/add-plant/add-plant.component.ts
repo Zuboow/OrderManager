@@ -51,7 +51,8 @@ export class AddPlantComponent implements OnInit {
         size: this.plants[this.index].size,
         potCap: this.plants[this.index].potCap,
         price: this.plants[this.index].price,
-        quantity: this.quantity
+        quantity: this.quantity,
+        fullPrice: this.quantity * this.plants[this.index].price
       };
 
       this.formError = false;
