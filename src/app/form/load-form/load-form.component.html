@@ -16,8 +16,8 @@
             <td>{{i.size}}</td>
             <td>{{i.potCap}}</td>
             <td>{{i.quantity}}</td>
-            <td>{{i.price}}zł</td>
-            <td>{{i.fullPrice}}zł</td>
+            <td>{{i.price | number: '.2-2'}}zł</td>
+            <td>{{i.fullPrice | number: '.2-2'}}zł</td>
             <td data-html2canvas-ignore="true" (click)="edit(ind, addPlantComponent)" style="cursor:pointer;">
                 <fa-icon [icon]="icon2"></fa-icon>
             </td>
@@ -30,7 +30,7 @@
     <div style="font-size: 12px;" class="row">
         <div class="col-md-8"></div>
         <div class="col-md-4">
-            <b>Razem do zapłaty (netto): &nbsp;{{endPrice}}zł</b>
+            <b>Razem do zapłaty (netto): &nbsp;{{endPrice | number: '.2-2'}}zł</b>
         </div>
     </div>
 </div>
@@ -38,10 +38,10 @@
     <div class="col-2 d-flex justify-content-start">
         <button class="btn-primary" style="padding: 9px;" (click)="add(addPlantComponent, false)">Dodaj pozycję</button>
     </div>
-    <div class="col-2 d-flex justify-content-start">
+    <div class="col-3 d-flex justify-content-start">
         <button class="btn-primary" style="padding: 9px;" (click)="add(addPlantComponent, true)">Dodaj własną pozycję</button>
     </div>
-    <div class="col-6"></div>
+    <div class="col-5"></div>
     <div class="col-2 d-flex justify-content-end">
         <button class="btn-success" style="padding: 9px;" (click)="SavePDFFile(printedTable)">Pobierz PDF</button>
     </div>
@@ -65,15 +65,15 @@
             <td>{{i.size}}</td>
             <td>{{i.potCap}}</td>
             <td>{{i.quantity}}</td>
-            <td>{{i.price}}zł</td>
-            <td>{{i.fullPrice}}zł</td>
+            <td>{{i.price | number: '.2-2'}}zł</td>
+            <td>{{i.fullPrice | number: '.2-2'}}zł</td>
         </tr>
     </table>
     <br>
     <div style="font-size: 12px;" class="row">
         <div class="col-md-8"></div>
         <div class="col-md-4">
-            <b>Razem do zapłaty (netto): &nbsp;{{endPrice}}zł</b>
+            <b>Razem do zapłaty (netto): &nbsp;{{endPrice | number: '.2-2'}}zł</b>
         </div>
     </div>
 </div>

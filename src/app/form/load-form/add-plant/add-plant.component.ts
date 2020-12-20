@@ -96,7 +96,7 @@ export class AddPlantComponent implements OnInit {
         this.index = index;
       }
     });
-    if (((this.index != null && !this.customName) || (this.customName)) 
+    if (((this.index != null && !this.customName) || (this.customName && this.customNameText.trim().length > 0)) 
       && this.quantity > 0 && this.plantPriceZl >= 0 && this.plantPriceGr >= 0 
       && this.plantPriceGr < 100 && this.plantHeight.trim().length > 0 && this.potCapacity.trim().length > 0 
       && this.plantPriceGr != null && this.plantPriceZl != null) {
