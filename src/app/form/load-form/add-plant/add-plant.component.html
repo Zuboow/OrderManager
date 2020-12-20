@@ -6,19 +6,46 @@
         <div class="col-md-12 mt-3">
             <p>Wybierz odmianę</p>
             <form [formGroup]="plantForm">
-            <select style="padding: 6px; width: 100%" formControlName="plant">
-                <option [value]="i.id" *ngFor="let i of plants">
-                    {{i.id + '. ' + i.name + ' (' + i.size + 'cm, ' + i.potCap + ')'}}
-                </option>
-            </select>
+                <select style="padding: 6px; width: 100%" formControlName="plant"
+                    (change)="loadSelectedPlantIntoForm($event.target.value)">
+                    <option [value]="i.id" *ngFor="let i of plants">
+                        {{i.id + '. ' + i.name + ' (' + i.size + 'cm, ' + i.potCap + ')'}}
+                    </option>
+                </select>
             </form>
         </div>
         <div class="col-12 mt-3">
             <p>Podaj ilość</p>
             <input type="number" min="0" style="width: 100%; padding: 6px;" [(ngModel)]="quantity">
         </div>
+        <div class="col-12 mt-3">
+            <p>Podaj wysokość rośliny</p>
+            <input type="text" style="width: 100%; padding: 6px;" [(ngModel)]="plantHeight">
+        </div>
+        <div class="col-12 mt-3">
+            <p>Podaj pojemność doniczki</p>
+            <input type="text" style="width: 100%; padding: 6px;" [(ngModel)]="potCapacity">
+        </div>
+        <div class="col-12 mt-3">
+            <p>Podaj cenę hurtową netto</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="number" min="0" style="width: 100%; padding: 6px;" [(ngModel)]="plantPriceZl">
+                </div>
+                <div class="col-md-2">
+                    złotych
+                </div>
+                <div class="col-md-4">
+                    <input type="number" min="0" max="99" style="width: 100%; padding: 6px;" [(ngModel)]="plantPriceGr">
+                </div>
+                <div class="col-md-2">
+                    groszy
+                </div>
+            </div>
+        </div>
         <div class="col-12 mt-3 mb-3">
-            <button class="btn btn-primary" (click)="confirm()">{{ (editedIndex > -1) ? 'Zatwierdź' : 'Dodaj' }}</button>
+            <button class="btn btn-primary" (click)="confirm()">{{ (editedIndex > -1) ? 'Zatwierdź' : 'Dodaj'
+                }}</button>
         </div>
     </div>
 </div>

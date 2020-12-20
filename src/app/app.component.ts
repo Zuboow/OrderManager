@@ -47,7 +47,7 @@ export class AppComponent {
               id: arraylist[x]['__EMPTY'], 
               name: arraylist[x]['Szkółka Roślin Ozdobnych'], 
               potCap: arraylist[x]['__EMPTY_2'], 
-              price: arraylist[x]['__EMPTY_5'], 
+              price: arraylist[x]['__EMPTY_5'],
               size: arraylist[x]['__EMPTY_1']});
           }
         }

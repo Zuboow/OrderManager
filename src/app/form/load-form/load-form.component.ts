@@ -65,11 +65,13 @@ export class LoadFormComponent implements OnInit {
   removeByIndex(index) {
     this.plants.splice(index, 1);
     this.saveInLocalStorage();
+    this.setNewEndPrice();
   }
 
   edit(index, content) {
     localStorage.setItem("editedIndex", JSON.stringify(this.plants[index]));
     this.editedIndex = index;
+    localStorage.setItem("tableIndex", JSON.stringify(this.editedIndex));
     this.modalService.open(content);
   }
 
