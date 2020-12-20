@@ -18,6 +18,7 @@ export class LoadFormComponent implements OnInit {
   editedIndex: -1;
   @Input() orderName = "";
   endPrice = 0;
+  customName = false;
 
   head = [['Lp.', 'Odmiana', 'Wysokość rośliny', 'Pojemność doniczki', 'Ilość zamówionych roślin', 'Cena hurtowa netto', 'Suma netto']]
 
@@ -72,11 +73,13 @@ export class LoadFormComponent implements OnInit {
     localStorage.setItem("editedIndex", JSON.stringify(this.plants[index]));
     this.editedIndex = index;
     localStorage.setItem("tableIndex", JSON.stringify(this.editedIndex));
+    this.customName = this.plants[index].customName ? true : false;
     this.modalService.open(content);
   }
 
-  add(content) {
+  add(content, customName) {
     this.editedIndex = -1;
+    this.customName = customName ? true : false;
     this.modalService.open(content);
   }
 

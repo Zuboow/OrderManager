@@ -12,7 +12,7 @@
             <!-- <tr *ngFor="let i of plants, let ind = index" 
         [ngClass]="{'avoidThisRow' : (ind == 20 || ind == 43 || ind == 64 || ind == 86 || ind == 108 || ind == 130)}"> -->
             <td>{{ind + 1}}</td>
-            <td>{{i.name}}</td>
+            <td>{{i.customName ? i.customName : i.name}}</td>
             <td>{{i.size}}</td>
             <td>{{i.potCap}}</td>
             <td>{{i.quantity}}</td>
@@ -36,15 +36,18 @@
 </div>
 <div class="row" style="margin-top: 5vh;">
     <div class="col-2 d-flex justify-content-start">
-        <button class="btn-primary" style="padding: 9px;" (click)="add(addPlantComponent)">Dodaj pozycję</button>
+        <button class="btn-primary" style="padding: 9px;" (click)="add(addPlantComponent, false)">Dodaj pozycję</button>
     </div>
-    <div class="col-8"></div>
+    <div class="col-2 d-flex justify-content-start">
+        <button class="btn-primary" style="padding: 9px;" (click)="add(addPlantComponent, true)">Dodaj własną pozycję</button>
+    </div>
+    <div class="col-6"></div>
     <div class="col-2 d-flex justify-content-end">
         <button class="btn-success" style="padding: 9px;" (click)="SavePDFFile(printedTable)">Pobierz PDF</button>
     </div>
 </div>
 <ng-template #addPlantComponent>
-    <app-add-plant [editedIndex]="editedIndex" (loadPlant)="loadPlant()"></app-add-plant>
+    <app-add-plant [editedIndex]="editedIndex" [customName]="customName" (loadPlant)="loadPlant()"></app-add-plant>
 </ng-template>
 <div #printedTable style="display: none;">
     <table class="table table-bordered" style="color:rgb(0, 0, 0);">
@@ -58,7 +61,7 @@
             <!-- <tr *ngFor="let i of plants, let ind = index" 
             [ngClass]="{'avoidThisRow' : (ind == 20 || ind == 43 || ind == 64 || ind == 86 || ind == 108 || ind == 130)}"> -->
             <td>{{ind + 1}}</td>
-            <td>{{i.name}}</td>
+            <td>{{i.customName ? i.customName : i.name}}</td>
             <td>{{i.size}}</td>
             <td>{{i.potCap}}</td>
             <td>{{i.quantity}}</td>

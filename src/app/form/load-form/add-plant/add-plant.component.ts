@@ -16,12 +16,16 @@ export class AddPlantComponent implements OnInit {
   plantPriceGr: number = 0;
   plantHeight: string = "";
   potCapacity: string = "";
+  customNameText: string = "";
 
   index: number = null;
   formError: boolean = false;
+
+  
   errorMessage = '';
   @Output() loadPlant = new EventEmitter();
   @Input() editedIndex = -1;
+  @Input() customName = false;
 
   constructor(private plantFormBuilder: FormBuilder) {
     this.plantForm = new FormGroup({
@@ -34,11 +38,18 @@ export class AddPlantComponent implements OnInit {
       this.plants = JSON.parse(localStorage.getItem("plantCatalogue"));
     }
     if (this.editedIndex > -1) {
-      var ind = JSON.parse(localStorage.getItem("editedIndex"));
-      this.quantity = ind.quantity;
-      this.plantForm.setValue({ plant: ind.id });
-      this.loadEditedPlantValues();
-      localStorage.removeItem("editedIndex");
+      if (!this.customName){
+        var ind = JSON.parse(localStorage.getItem("editedIndex"));
+        this.quantity = ind.quantity;
+        this.plantForm.setValue({ plant: ind.id });
+        this.loadEditedPlantValues();
+        localStorage.removeItem("editedIndex");
+      } else {
+        var ind = JSON.parse(localStorage.getItem("editedIndex"));
+        this.quantity = ind.quantity;
+        this.loadEditedPlantValues();
+        localStorage.removeItem("editedIndex");
+      }
     } else {
       this.plantForm.setValue({ plant: null });
     }
@@ -50,6 +61,7 @@ export class AddPlantComponent implements OnInit {
     console.log(editedPlant);
     this.plantHeight = editedPlant.size;
     this.potCapacity = editedPlant.potCap;
+    this.customNameText = this.customName ? editedPlant.customName : null;
     var y = editedPlant.price.toString().split(".")[0];
     this.plantPriceZl = Number(y);
     if (editedPlant.price.toString().split(".")[1] != null){
@@ -84,17 +96,19 @@ export class AddPlantComponent implements OnInit {
         this.index = index;
       }
     });
-    if (this.index != null && this.quantity > 0 && this.plantPriceZl >= 0 && this.plantPriceGr >= 0 
+    if (((this.index != null && !this.customName) || (this.customName)) 
+      && this.quantity > 0 && this.plantPriceZl >= 0 && this.plantPriceGr >= 0 
       && this.plantPriceGr < 100 && this.plantHeight.trim().length > 0 && this.potCapacity.trim().length > 0 
       && this.plantPriceGr != null && this.plantPriceZl != null) {
       var newPlant = {
-        id: this.plants[this.index].id,
-        name: this.plants[this.index].name,
+        id: !this.customName ? this.plants[this.index].id : null,
+        name: !this.customName ? this.plants[this.index].name : null,
         size: this.plantHeight,
         potCap: this.potCapacity,
         price: this.plantPriceZl + (this.plantPriceGr * 0.01),
         quantity: this.quantity,
-        fullPrice: this.quantity * (this.plantPriceZl + (this.plantPriceGr * 0.01))
+        fullPrice: this.quantity * (this.plantPriceZl + (this.plantPriceGr * 0.01)),
+        customName: this.customName ? this.customNameText : null
       };
 
       this.formError = false;

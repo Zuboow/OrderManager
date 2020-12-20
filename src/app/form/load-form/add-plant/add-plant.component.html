@@ -3,7 +3,7 @@
         <div class="col-12 mt-3" *ngIf="formError">
             <p style="color: red">{{errorMessage}}</p>
         </div>
-        <div class="col-md-12 mt-3">
+        <div class="col-md-12 mt-3" *ngIf="!customName">
             <p>Wybierz odmianę (wybór nadpisuje poniższe wartości)</p>
             <form [formGroup]="plantForm">
                 <select style="padding: 6px; width: 100%" formControlName="plant"
@@ -13,6 +13,10 @@
                     </option>
                 </select>
             </form>
+        </div>
+        <div class="col-md-12 mt-3" *ngIf="customName">
+            <p>Wpisz odmianę</p>
+            <input type="text" style="width: 100%; padding: 6px;" [(ngModel)]="customNameText">
         </div>
         <div class="col-12 mt-3">
             <p>Podaj ilość</p>
