@@ -94,11 +94,12 @@ export class AddPlantComponent implements OnInit {
         potCap: this.potCapacity,
         price: this.plantPriceZl + (this.plantPriceGr * 0.01),
         quantity: this.quantity,
-        fullPrice: this.quantity * this.plants[this.index].price
+        fullPrice: this.quantity * (this.plantPriceZl + (this.plantPriceGr * 0.01))
       };
 
       this.formError = false;
       localStorage.setItem('plantInstance', JSON.stringify(newPlant));
+      localStorage.removeItem("tableIndex");
       this.loadPlant.emit(null);
     } else {
       this.formError = true;

@@ -4,7 +4,7 @@
             <p style="color: red">{{errorMessage}}</p>
         </div>
         <div class="col-md-12 mt-3">
-            <p>Wybierz odmianę</p>
+            <p>Wybierz odmianę (wybór nadpisuje poniższe wartości)</p>
             <form [formGroup]="plantForm">
                 <select style="padding: 6px; width: 100%" formControlName="plant"
                     (change)="loadSelectedPlantIntoForm($event.target.value)">
