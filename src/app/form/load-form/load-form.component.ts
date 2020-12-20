@@ -17,8 +17,10 @@ export class LoadFormComponent implements OnInit {
   icon2 = faEdit;
   editedIndex: -1;
   @Input() orderName = "";
+  endPrice = 0;
+  customName = false;
 
-  head = [['Lp.', 'Odmiana', 'Wysokość rośliny', 'Pojemność doniczki', 'Ilość zamówionych roślin', 'Cena w zakupie powyżej 5000zł - rabat 20%']]
+  head = [['Lp.', 'Odmiana', 'Wysokość rośliny', 'Pojemność doniczki', 'Ilość zamówionych roślin', 'Cena hurtowa netto', 'Suma netto']]
 
   plants = [];
 
@@ -27,6 +29,7 @@ export class LoadFormComponent implements OnInit {
   ngOnInit(): void {
     this.orderName = localStorage.getItem("orderName");
     this.plants = JSON.parse(localStorage.getItem("plantList"));
+    this.setNewEndPrice();
   }
 
   // SaveExcelFile(){
@@ -43,7 +46,7 @@ export class LoadFormComponent implements OnInit {
       filename: localStorage.getItem("orderName").trim(),
       image: { type: 'jpeg' },
       html2canvas: {
-        height: 120+(this.plants.length * 45)+((this.plants.length / 22) * 45),
+        height: 400+(this.plants.length * 45)+((this.plants.length / 22) * 45),
         scale: 4,
         y: 0,
         scrollY: 0,
@@ -63,16 +66,20 @@ export class LoadFormComponent implements OnInit {
   removeByIndex(index) {
     this.plants.splice(index, 1);
     this.saveInLocalStorage();
+    this.setNewEndPrice();
   }
 
   edit(index, content) {
     localStorage.setItem("editedIndex", JSON.stringify(this.plants[index]));
     this.editedIndex = index;
+    localStorage.setItem("tableIndex", JSON.stringify(this.editedIndex));
+    this.customName = this.plants[index].customName ? true : false;
     this.modalService.open(content);
   }
 
-  add(content) {
+  add(content, customName) {
     this.editedIndex = -1;
+    this.customName = customName ? true : false;
     this.modalService.open(content);
   }
 
@@ -92,10 +99,18 @@ export class LoadFormComponent implements OnInit {
     } else {
       this.plants.push(plant);
     }
+    this.setNewEndPrice();
     this.modalService.dismissAll();
     localStorage.removeItem("plantInstance");
 
     this.saveInLocalStorage();
+  }
+
+  setNewEndPrice(){
+    this.endPrice = 0;
+    this.plants.forEach(element => {
+      this.endPrice += element.fullPrice; 
+    });
   }
 
   saveInLocalStorage() {

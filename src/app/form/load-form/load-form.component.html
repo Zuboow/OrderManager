@@ -2,8 +2,8 @@
 <div id="excelTable">
     <table class="table table-bordered" style="color:rgb(0, 0, 0);">
         <tr>
-            <th colspan="6" class="text-center">{{orderName}}</th>
-            <th colspan="6" class="text-center" style="cursor:pointer;" data-html2canvas-ignore="true" (click)="editName(setOrderName)"><fa-icon [icon]="icon2"></fa-icon></th>
+            <th colspan="7" class="text-center">{{orderName}}</th>
+            <th colspan="7" class="text-center" style="cursor:pointer;" data-html2canvas-ignore="true" (click)="editName(setOrderName)"><fa-icon [icon]="icon2"></fa-icon></th>
         </tr>
         <tr *ngFor="let x of head">
             <th *ngFor="let y of x">{{y}}</th>
@@ -12,11 +12,12 @@
             <!-- <tr *ngFor="let i of plants, let ind = index" 
         [ngClass]="{'avoidThisRow' : (ind == 20 || ind == 43 || ind == 64 || ind == 86 || ind == 108 || ind == 130)}"> -->
             <td>{{ind + 1}}</td>
-            <td>{{i.name}}</td>
-            <td>{{i.size}}cm</td>
+            <td>{{i.customName ? i.customName : i.name}}</td>
+            <td>{{i.size}}</td>
             <td>{{i.potCap}}</td>
             <td>{{i.quantity}}</td>
-            <td>{{i.price}}</td>
+            <td>{{i.price}}zł</td>
+            <td>{{i.fullPrice}}zł</td>
             <td data-html2canvas-ignore="true" (click)="edit(ind, addPlantComponent)" style="cursor:pointer;">
                 <fa-icon [icon]="icon2"></fa-icon>
             </td>
@@ -25,23 +26,33 @@
             </td>
         </tr>
     </table>
+    <br>
+    <div style="font-size: 12px;" class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <b>Razem do zapłaty (netto): &nbsp;{{endPrice}}zł</b>
+        </div>
+    </div>
 </div>
 <div class="row" style="margin-top: 5vh;">
     <div class="col-2 d-flex justify-content-start">
-        <button class="btn-primary" style="padding: 9px;" (click)="add(addPlantComponent)">Dodaj pozycję</button>
+        <button class="btn-primary" style="padding: 9px;" (click)="add(addPlantComponent, false)">Dodaj pozycję</button>
     </div>
-    <div class="col-8"></div>
+    <div class="col-2 d-flex justify-content-start">
+        <button class="btn-primary" style="padding: 9px;" (click)="add(addPlantComponent, true)">Dodaj własną pozycję</button>
+    </div>
+    <div class="col-6"></div>
     <div class="col-2 d-flex justify-content-end">
         <button class="btn-success" style="padding: 9px;" (click)="SavePDFFile(printedTable)">Pobierz PDF</button>
     </div>
 </div>
 <ng-template #addPlantComponent>
-    <app-add-plant [editedIndex]="editedIndex" (loadPlant)="loadPlant()"></app-add-plant>
+    <app-add-plant [editedIndex]="editedIndex" [customName]="customName" (loadPlant)="loadPlant()"></app-add-plant>
 </ng-template>
 <div #printedTable style="display: none;">
     <table class="table table-bordered" style="color:rgb(0, 0, 0);">
         <tr>
-            <th colspan="6" class="text-center">{{orderName}}</th>
+            <th colspan="7" class="text-center">{{orderName}}</th>
         </tr>
         <tr *ngFor="let x of head">
             <th *ngFor="let y of x">{{y}}</th>
@@ -50,13 +61,21 @@
             <!-- <tr *ngFor="let i of plants, let ind = index" 
             [ngClass]="{'avoidThisRow' : (ind == 20 || ind == 43 || ind == 64 || ind == 86 || ind == 108 || ind == 130)}"> -->
             <td>{{ind + 1}}</td>
-            <td>{{i.name}}</td>
-            <td>{{i.size}}cm</td>
+            <td>{{i.customName ? i.customName : i.name}}</td>
+            <td>{{i.size}}</td>
             <td>{{i.potCap}}</td>
             <td>{{i.quantity}}</td>
-            <td>{{i.price}}</td>
+            <td>{{i.price}}zł</td>
+            <td>{{i.fullPrice}}zł</td>
         </tr>
     </table>
+    <br>
+    <div style="font-size: 12px;" class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <b>Razem do zapłaty (netto): &nbsp;{{endPrice}}zł</b>
+        </div>
+    </div>
 </div>
 <ng-template #setOrderName>
     <app-set-order-name (nameSaved)="setNewOrderName()"></app-set-order-name>

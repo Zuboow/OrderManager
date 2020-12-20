@@ -23,7 +23,7 @@ export class AppComponent {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    if (this.fileToUpload.name.split(".")[1] == "xlsx" || this.fileToUpload.name.split(".")[1] == "ods") {
+    if (this.fileToUpload.name.split(".")[this.fileToUpload.name.split(".").length - 1] == "ods") {
       let fileReader = new FileReader();
       fileReader.readAsArrayBuffer(this.fileToUpload);
       fileReader.onload = (e) => {
@@ -47,7 +47,7 @@ export class AppComponent {
               id: arraylist[x]['__EMPTY'], 
               name: arraylist[x]['Szkółka Roślin Ozdobnych'], 
               potCap: arraylist[x]['__EMPTY_2'], 
-              price: arraylist[x]['__EMPTY_5'], 
+              price: arraylist[x]['__EMPTY_5'],
               size: arraylist[x]['__EMPTY_1']});
           }
         }
