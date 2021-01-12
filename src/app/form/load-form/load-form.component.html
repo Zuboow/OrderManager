@@ -9,8 +9,6 @@
             <th *ngFor="let y of x">{{y}}</th>
         </tr>
         <tr *ngFor="let i of plants, let ind = index">
-            <!-- <tr *ngFor="let i of plants, let ind = index" 
-        [ngClass]="{'avoidThisRow' : (ind == 20 || ind == 43 || ind == 64 || ind == 86 || ind == 108 || ind == 130)}"> -->
             <td>{{ind + 1}}</td>
             <td>{{i.customName ? i.customName : i.name}}</td>
             <td>{{i.size}}</td>
@@ -58,8 +56,6 @@
             <th *ngFor="let y of x">{{y}}</th>
         </tr>
         <tr *ngFor="let i of plants, let ind = index">
-            <!-- <tr *ngFor="let i of plants, let ind = index" 
-            [ngClass]="{'avoidThisRow' : (ind == 20 || ind == 43 || ind == 64 || ind == 86 || ind == 108 || ind == 130)}"> -->
             <td>{{ind + 1}}</td>
             <td>{{i.customName ? i.customName : i.name}}</td>
             <td>{{i.size}}</td>
